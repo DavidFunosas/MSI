@@ -36,7 +36,8 @@ def read_crd(fname):
 	mol.filter('not water')
 	return(mol, up, down)
 
-m1 = read_crd('dlpe_n128.crd')
-print (m1[0])
-print (m1[1])
-print (m1[2])
+if __name__ == "__main__":
+	m1 = read_crd('dlpe_n128.crd')
+	print (m1[0])
+	print (m1[1])
+	print (m1[2])
