@@ -3,8 +3,7 @@
 ###################################################################################################################################
 ####### Importing the required modules.
 
-import sys, os, datetime, subprocess
-import re
+import sys, os
 import argparse
 import numpy as np
 from lipids_charm_list import daug_parent, parent_atom
