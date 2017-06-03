@@ -6,9 +6,8 @@
 import sys, os
 import argparse
 import numpy as np
-import subprocess, datetime
-from lipids_charm_list import lipid_parent, parent_atom, lipidSurfArea, sqrSize 
-
+from lipids_charm_list import lipid_parent, parent_atom, lipidSurfArea, sqrSize
+import datetime
 
 ###################################################################################################################################
 ####### Argument parsing
@@ -58,19 +57,18 @@ parser.add_argument('-s', '--size',
 parser.add_argument('-d', "--distance",
 					dest = "bet_dist",
 					action = "store",
-					type=int,
-					nargs='+',
+					type=int,,
 					default = 3,
 					required = False,
 					help = "Distance between layers. (In Armstrong).",
 					)
-parser.add_argument('-o', "--output",
+parser.add_argument('-o', "--out_name",
 					dest = "out_name",
 					action = "store",
 					type=str,
-					default = "",
+					default = '',
 					required = False,
-					help = "Default output filename.",
+					help = "Output name of resulting PDB file.",
 					)
 
 options = parser.parse_args()
@@ -90,11 +88,6 @@ if __name__ == "__main__":
 	low_ratio = options.low_ratio
 	sys_size= options.sys_size
 	bet_dist = options.bet_dist
-	out_name = options.out_name
-	if out_name != "":
-	
-	else
-		default_name = datetime.datetime.now().strftime('%Y%m%d')
 
 ###################################################################################################################################
 ####### Checking if the number of lipids coincide with their respective ratio.
