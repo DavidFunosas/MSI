@@ -622,7 +622,7 @@ lipidSurfArea = {
 	'LDAO':'30'
 }
 
-membraneSize = {
+sqrSize = {
  	'Cholesterol':'34.641',
 	'ERG':'40.6202',
 	'DLPA':'41.4246',
