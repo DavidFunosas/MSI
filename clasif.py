@@ -332,9 +332,9 @@ if __name__ == "__main__":
 
 
 				# store coord of residue to be removed from mol
-				coordp_m1 = mol.get('coords', 'resid ' + res_to_delete +  ' and name ' + lipid_parent[mol.get('resname', 'resid ' + res_to_delete)[0]])
+				coordp_m1 = mol.get('coords', 'resid ' + res_to_delete +  ' and name ' + parent_atom[lipid_parent[mol.get('resname', 'resid ' + res_to_delete)[0]]])
 				# store coord of residue to be inserted in mol
-				coordp_m2 = mol_to_insert.get('coords', 'name ' + lipid_parent[mol_to_insert.get('resname')[0]])
+				coordp_m2 = mol_to_insert.get('coords', 'name ' + parent_atom[lipid_parent[mol_to_insert.get('resname')[0]]])
 				# translate residue to be inserted to the final coord
 				mol_to_insert.moveBy(coordp_m1-coordp_m2)
 
