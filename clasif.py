@@ -197,14 +197,14 @@ parser.add_argument('-s', '--size',
 					nargs='+',
 					default = 200,
 					required = False,
-					help = "Average bilayer surface area. (In Armstrong).",)
+					help = "Average bilayer surface area. (In Armstrongs).",)
 parser.add_argument('-d', "--distance",
 					dest = "bet_dist",
 					action = "store",
 					type=int,
 					default = 3,
 					required = False,
-					help = "Distance between layers. (In Armstrong).",
+					help = "Distance between layers. (In Armstrongs).",
 					)
 parser.add_argument('-o', "--out_name",
 					dest = "out_name",
@@ -252,11 +252,12 @@ if __name__ == "__main__":
 	for a in up_lip:
 		if a.upper() not in lipid_parent.keys():
 			print("Sorry, %s is not in our database." %(a))
+			sys.exit()
 
 	for a in low_lip:
 		if a.upper() not in lipid_parent.keys():
 			print("Sorry, %s is not in our database." %(a))
-
+			sys.exit()
 
 	if (len(up_lip) > 0 and len(low_lip) > 0):
 		my_membrane1 = './db/' + up_lip[0] + '.crd'
