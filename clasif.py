@@ -153,7 +153,7 @@ def getLipidToDelete(target_props, current_props, prop_names):
 ###################################################################################################################################
 ####### Argument parsing
 
-parser = argparse.ArgumentParser(description="This program does a superimposition of two proteins based on Secondary Structure Elements (SEEs).")
+parser = argparse.ArgumentParser(description="This program allows the user to create different lipid membranes.")
 parser.add_argument('-u', '--upper',
 					dest = "up_lip",
 					action = "store",
