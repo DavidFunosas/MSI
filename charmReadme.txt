@@ -46,20 +46,8 @@ The program needs a series of user-specified input arguments that include the li
 composition of the membrane, the abundance ratio of each lipid type, the membrane size and 
 distance between layers. 
 
-2.INSTALLATION
 
-The package does not require any special installation procedure. The compressed
-folder must be downloaded and uncompressed and placed anywhere. In the main
-folder type:
-
-sudo python3 setup.py install
-
-With this command the databases needed to run the scripts will be stored in
-python containers and the modules needed for the analysis will be placed
-in the python3 library.
-
-
-3.USAGE
+2.USAGE
 
 usage: clasif.py [-h] -u UP_LIP [UP_LIP ...] -l LOW_LIP [LOW_LIP ...] -ur
                  UP_RATIO [UP_RATIO ...] -lr LOW_RATIO [LOW_RATIO ...]
@@ -85,5 +73,8 @@ optional arguments:
                         Output name of resulting PDB file.
   -v, --viewer          Visualization of output in VMD turned on.
 
-The outputs will be stored in its query respective output directory (e.g. "query_chain_output/").
-If query file contains several chains, each chain will have its own directory.
+
+3.EXAMPLE
+
+
+
