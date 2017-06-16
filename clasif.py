@@ -153,7 +153,7 @@ def getLipidToDelete(target_props, current_props, prop_names):
 ###################################################################################################################################
 ####### Argument parsing
 
-parser = argparse.ArgumentParser(description="This program allows the user to create different lipid membranes.")
+parser = argparse.ArgumentParser(description="Build custom lipid bilayers using CHARMM-GUI's database http://www.charmm-gui.org/?doc=input/membrane_only&step=1.")
 parser.add_argument('-u', '--upper',
 					dest = "up_lip",
 					action = "store",
@@ -161,7 +161,7 @@ parser.add_argument('-u', '--upper',
 					nargs='+',
 					default = None,
 					required = True,
-					help = "Upper-layer lipids. (Separated by spcae)",)
+					help = "Upper-layer lipids composition (separated by space)",)
 parser.add_argument('-l', '--lower',
 					dest = "low_lip",
 					action = "store",
@@ -169,7 +169,7 @@ parser.add_argument('-l', '--lower',
 					nargs='+',
 					default = None,
 					required = True,
-					help = "Lower-layer lipids. (Separated by space)",)
+					help = "Lower-layer lipids composition (separated by space)",)
 parser.add_argument('-ur', "--upratio",
 					dest = "up_ratio",
 					action = "store",
@@ -177,8 +177,7 @@ parser.add_argument('-ur', "--upratio",
 					nargs='+',
 					default = None,
 					required = True,
-					help = "Upper-layer lipid ratio. (Separated by space)",
-					)
+					help = "Upper-layer lipids ratio (separated by space)",)
 parser.add_argument('-lr', '--lowratio',
 					dest = "low_ratio",
 					action = "store",
@@ -186,7 +185,7 @@ parser.add_argument('-lr', '--lowratio',
 					nargs='+',
 					default = None,
 					required = True,
-					help = "Lower-layer lipid ratio. (Separated by space)",)
+					help = "Lower-layer lipids ratio (separated by space)",)
 parser.add_argument('-s', '--size',
 					dest = "sys_size",
 					action = "store",
@@ -194,29 +193,26 @@ parser.add_argument('-s', '--size',
 					nargs='+',
 					default = 200,
 					required = False,
-					help = "Average bilayer surface area. (In Armstrong).",)
+					help = "Average bilayer surface area (in Angstrom).")
 parser.add_argument('-d', "--distance",
 					dest = "bet_dist",
 					action = "store",
 					type=int,
 					default = 3,
 					required = False,
-					help = "Distance between layers. (In Armstrong).",
-					)
+					help = "Distance between layers (in Angstrom).",)
 parser.add_argument('-o', "--out_name",
 					dest = "out_name",
 					action = "store",
 					type=str,
 					default = '',
 					required = False,
-					help = "Output name of resulting PDB file.",
-					)
+					help = "Output name of resulting PDB file.",)
 parser.add_argument('-v', "--viewer",
 					dest = "viewer",
 					action = "store_true",
 					required = False,
-					help = "Visualization of output in VMD turned on.",
-					)
+					help = "Visualization of output in VMD turned on.",)
 
 options = parser.parse_args()
 
