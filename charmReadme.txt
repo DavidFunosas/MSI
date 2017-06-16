@@ -22,11 +22,12 @@
 			   |                 |       L              ,' |
 			   `                 |       |             /   '
 #################################################################################################
-#           				 Charmm-Ander           	                        #
+#           				 CHARMM-ANDER            	                        #
 #                                                                                               #
 # Authors:  Maria José Falaguera, David Funosas, Lucía Rodríguez Vázquez & Edgar Sánchez Prados #                              
-# Goal:    The script allows the user to build custom lipid bilayers using CHARMM-GUI's         #
-#          database.                                                                            #
+# Goal:     Build custom lipid bilayers using CHARMM-GUI's database                             #
+#           http://www.charmm-gui.org/?doc=input/membrane_only&step=1.").                       # 
+#                                                                                               #
 #################################################################################################
 
 
@@ -39,7 +40,7 @@ argparse and htmd.
 
 1.SUMMARY
 
-Charmm-Ander is a third-party-package able to build custom lipidic bilayers, either heterogeneous
+CHARMM-ANDER is a third-party-package able to build custom lipidic bilayers, either heterogeneous
 or homogeneous. It is intended to reproduce the behaviour of CHARMM-GUI'S Membrane Builder by
 command line.
 The program needs a series of user-specified input arguments that include the lipidic 
@@ -53,9 +54,6 @@ usage: clasif.py [-h] -u UP_LIP [UP_LIP ...] -l LOW_LIP [LOW_LIP ...] -ur
                  UP_RATIO [UP_RATIO ...] -lr LOW_RATIO [LOW_RATIO ...]
                  [-s SYS_SIZE [SYS_SIZE ...]] [-d BET_DIST] [-o OUT_NAME] [-v]
 
-This program allows the user to create different lipid membranes.
-
-optional arguments:
   -h, --help            show this help message and exit
   -u UP_LIP [UP_LIP ...], --upper UP_LIP [UP_LIP ...]
                         Upper-layer lipids. (Separated by spcae)
