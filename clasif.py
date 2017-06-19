@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 
 # read crd and store lipids in upper or lower membrane
@@ -11,6 +12,37 @@ import argparse
 from lipids_charm_list import lipid_parent, parent_atom, lipidSurfArea, sqrSize
 import datetime
 from htmd import *
+
+#It creates a layer with us size instead of the original size t by copying the content of m11copy until the layer reaches the desired size
+def layer_creation(t, us, m11copy):
+    value = int(n/surface_m1)
+    times = value*value - 1
+
+    x = 0.0
+    y = 0.0
+
+    c = 1
+
+    for i in range(0, times):
+        m1copy = m11copy.copy()
+        m1copy.center
+
+        if c == value:
+            y = y + surface_m1
+            x = 0.0
+            m1copy.moveBy([[ x,    y,  0.0]])
+            m1[0].append(m1copy)
+            c = 0
+
+
+        else: #In this step I set the squares in first column
+            x += surface_m1
+            m1copy.moveBy([[ x,    y,  0.0]])
+            m1[0].append(m1copy)
+
+        c += 1
+        
+    return(m1[0])
 
 # get 2 molecules = up and low
 def get_leaflets(fname1, fname2):
@@ -275,14 +307,12 @@ if __name__ == "__main__":
 		#ARG11 =["DGPA", 3, "DYPA", 1]
 		ARGGG = [[(up_lip[i], up_ratio[i]) for i in range(len(up_lip))], [(low_lip[i], low_ratio[i]) for i in range(len(low_lip))]]
 		n = 30 #For dimensions of membrane template
-		m = 100 #For dimensions from user
+		m = sys_size #For dimensions from user
 
 		#Retrieving information
 		upper = data_retrieval(ARGGG[0])
 		lower = data_retrieval(ARGGG[1])
 
-
-		# In[80]:
 
 		#Getting the index of the major lipid type and defining template membrane
 		max_ratio_u = max(enumerate(upper[0]), key = lambda x: x[1])
@@ -292,6 +322,7 @@ if __name__ == "__main__":
 		prop_names = [up_lip, low_lip]
 
 		for leaflet in range(len(leaflets)):
+			#It determines the target proportions, in percentage, of each lipid for the current leaflet
 			sum_prop = sum(prop_numbers[leaflet])
 			mol = leaflets[leaflet]
 			mol.center()
@@ -300,13 +331,15 @@ if __name__ == "__main__":
 			for i in range(len(prop_numbers[leaflet])):
 				target_props.append(round(prop_numbers[leaflet][i]*100.0/sum_prop,0))
 
-			#The first lipid is the most abundant one
+			#As we start with the template membrane formed only by the lipid with the highest proportion, it just has a 100% proportion currently, and the 
+			#rest of lipids have a 0% proportion.
 			current_props = [100]
 	
 			for i in range(1,len(prop_numbers[leaflet])):
 				current_props.append(0)
 		
-			#It copies the data before the insertion/deletion(s)
+			#It copies the data before the insertion/deletion(s). This way, in case they don't result in proportions closer to the desired ones, it 
+			#can reverse the changes.
 			previous_props = deepcopy(current_props)
 			previous_differences = propDifferences(target_props, current_props)
 			leaflet_copy = deepcopy(mol)
@@ -314,19 +347,24 @@ if __name__ == "__main__":
 			#If the attempts are unsuccessful 10 times in a row, it exits the loop
 			nFailedAttemptsInARow = 0
 
+			#Acceptable difference in percentage with respect to the target proportions.
 			acceptable_difference_threshold = 5
 	
 			while (not propDifferencesAcceptable(target_props, current_props, acceptable_difference_threshold) and nFailedAttemptsInARow < 10):
 				#Insertion/Deletion
-				#It gets all distinct residue identifiers that can be replaced
-				#It will probably only replace the type of lipid that conforms the whole membrane at the beginning
+				#It gets the lipid type that we should remove, that is, the one whose proportion is the highest with respect to the target one.
+				#It gets all distinct residue identifiers that can be replaced.
+				#It will probably only replace the type of lipid that conforms the whole membrane at the beginning.
 				resids = list(set(mol.get('resid', 'resname ' + getLipidToDelete(target_props, current_props, prop_names[leaflet]))))
-				#It randomly selects the residue to remove
+				#It randomly selects the residue to remove from among the ones selected (they have all the same type).
 				res_to_delete = str(random.choice(resids))
+				#For the moment, there are no changes in proportions as it hasn't done neither insertions nor deletions.
 				proportion_changes = [0]*len(current_props)
 
-				#It chooses the lipid to insert
+				#It chooses the lipid to insert, that is, the one whose proportion is the lowest with respect to the target one.
 				resname_to_insert = getLipidToInsert(target_props, current_props, prop_names[leaflet])
+				#It gets the template from which it will take the residue that will be inserted, and then it just takes the first residue, as we 
+				#just want to add one in each iteration
 				mol_to_insert = read_crd('./db/' + resname_to_insert + '.crd')[0]
 				mol_to_insert.filter('resid 1')
 				mol_to_insert.center()
@@ -361,6 +399,8 @@ if __name__ == "__main__":
 					current_props = previous_props
 					current_differences = previous_differences
 					nFailedAttemptsInARow += 1
+
+			leaflets[leaflet] = mol
 	
 
 # leaflets es un tupple con 2 elementos: 
@@ -381,8 +421,26 @@ if __name__ == "__main__":
 #			leaflets.write(out_name)
 #		print ('The PDB file has been created successfully!')
 
+		#The size we use in all our templates
+		template_size = 30
+
+		#It creates two layers with the size the user has indicated from the ones I already have
+		uplayer = layer_creation(template_size, sys_size, leaflets[0])
+		lowlayer = layer_creation(template_size, sys_size, leaflets[1])
+
+		#It moves the lower layer so as to have them separated by 20 in the Z axis. This is the separation between the two membrane's leaflets.
+		uplayer.center
+		lowlayer.center
+		lowlayer.moveBy([[ 0.0,    0.0,   20]])
+
+		#It joins the two layers in a single molecule object and it writes it in the resulting .pdb file.
+		uplayer.append(lowlayer)
+	
+		uplayer.write(out_name)
+
+
 		if viewer:
-			leaflet_copy.view('VMD')
+			uplayer.view('VMD')
 			input("\nPress enter to finish visualization and exit.")
 		
 
