@@ -58,6 +58,6 @@ optional arguments:
 
 The following example command will generate a lipid bilayer having SAPA and SAPC on the upper layer with a ratio 1 to 3 and SAPE and SAPG on the upper layer with a ratio 3 to 1. Distance between layers will be set to 10 Angstrom. The -v argument will make the resulting pdb file to be loaded and visualized in VMD (if installed).
 
-python charmm.py -u SAPA SAPC -l SAPE SAPG -ur 1 3 -lr 3 1 -d 10 -o example.pdb -v
+python charmmander.py -u SAPA SAPC -l SAPE SAPG -ur 1 3 -lr 3 1 -d 10 -o example.pdb -v
 
 
