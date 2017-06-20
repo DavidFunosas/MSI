@@ -382,8 +382,6 @@ if __name__ == "__main__":
 				mol = mol_to_insert.copy()	
 				
 				#Applying the changes in proportions
-				current_nLipids -= len(deleted_resids)
-				current_nLipids += 1
 				proportion_changes = get_proportion_changes(leaflet_copy, mol, prop_names[leaflet])
 				current_props = [current_props[i]+proportion_changes[i] for i in range(len(current_props))]		
 
