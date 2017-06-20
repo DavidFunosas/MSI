@@ -426,7 +426,7 @@ if __name__ == "__main__":
 		diff_u = zmax_u-zmin_u
 
 		#It moves the lower layer so as to have them separated by the distance (in the Z axis) defined by the user
-		lowlayer.moveBy([[ 0.0,    0.0,   -(bet_dist+max([diff_l,diff_u])]]))
+		lowlayer.moveBy([[ 0.0,    0.0,   -(bet_dist+max([diff_l,diff_u]))]])
 
 		#It joins the two layers in a single molecule object and it writes it in the resulting .pdb file.
 		uplayer.append(lowlayer)
