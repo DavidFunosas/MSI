@@ -28,26 +28,31 @@ distance between layers.
 
 2.USAGE
 
-usage: clasif.py [-h] -u UP_LIP [UP_LIP ...] -l LOW_LIP [LOW_LIP ...] -ur
-                 UP_RATIO [UP_RATIO ...] -lr LOW_RATIO [LOW_RATIO ...]
-                 [-s SYS_SIZE [SYS_SIZE ...]] [-d BET_DIST] [-o OUT_NAME] [-v]
+usage: clasif_2.py [-h] -u UP_LIP [UP_LIP ...] -l LOW_LIP [LOW_LIP ...] -ur
+                   UP_RATIO [UP_RATIO ...] -lr LOW_RATIO [LOW_RATIO ...]
+                   [-s SYS_SIZE] [-d BET_DIST] [-o OUT_NAME] [-v]
 
+Build custom lipid bilayers using CHARMM-GUI's database http://www.charmm-
+gui.org/?doc=input/membrane_only&step=1.
+
+optional arguments:
   -h, --help            show this help message and exit
   -u UP_LIP [UP_LIP ...], --upper UP_LIP [UP_LIP ...]
-                        Upper-layer lipids. (Separated by spcae)
+                        Upper-layer lipids composition (separated by space)
   -l LOW_LIP [LOW_LIP ...], --lower LOW_LIP [LOW_LIP ...]
-                        Lower-layer lipids. (Separated by space)
+                        Lower-layer lipids composition (separated by space)
   -ur UP_RATIO [UP_RATIO ...], --upratio UP_RATIO [UP_RATIO ...]
-                        Upper-layer lipid ratio. (Separated by space)
+                        Upper-layer lipids ratio (separated by space)
   -lr LOW_RATIO [LOW_RATIO ...], --lowratio LOW_RATIO [LOW_RATIO ...]
-                        Lower-layer lipid ratio. (Separated by space)
-  -s SYS_SIZE [SYS_SIZE ...], --size SYS_SIZE [SYS_SIZE ...]
-                        Average bilayer surface area. (In Armstrong).
+                        Lower-layer lipids ratio (separated by space)
+  -s SYS_SIZE, --size SYS_SIZE
+                        Average bilayer surface area (in Angstrom).
   -d BET_DIST, --distance BET_DIST
-                        Distance between layers. (In Armstrong).
+                        Distance between layers (in Angstrom).
   -o OUT_NAME, --out_name OUT_NAME
                         Output name of resulting PDB file.
   -v, --viewer          Visualization of output in VMD turned on.
+
 
 
 3.EXAMPLE
