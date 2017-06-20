@@ -3,7 +3,7 @@
 #                                                                                               #
 # Authors:  Maria José Falaguera, David Funosas, Lucía Rodríguez Vázquez & Edgar Sánchez Prados #                              
 # Goal:     Build custom lipid bilayers using CHARMM-GUI's database                             #
-#           http://www.charmm-gui.org/?doc=input/membrane_only&step=1.").                       # 
+#           (http://www.charmm-gui.org/?doc=input/membrane_only&step=1)                         # 
 #                                                                                               #
 #################################################################################################
 
