@@ -12,7 +12,7 @@ from lipids_charm_list import lipid_parent, parent_atom, lipidSurfArea, sqrSize
 import datetime
 from htmd import *
 
-#It creates a layer with us size instead of the original size t by copying the content of m11copy until the layer reaches the desired size
+#It creates a layer with user defined size instead of the original size of the template by copying the content of m11copy until the layer reaches the desired size
 def layer_creation(t, us, m11copy):
 	if (t != us):
 		value = int(us/t)
@@ -59,22 +59,6 @@ def get_leaflets(fname1, fname2):
 		lower = deepcopy(crd2[0])
 	lower.filter('resid ' + ' '.join(crd2[2]))
 	return [upper, lower]
-	
-
-#Defining data retrieval function
-def data_retrieval(ARG11):
-	#Initialize some variables
-	lipids = []
-	#surfaces = []
-	ratios = []
-
-	for i in range(0, len(ARG11)): #Cambiar o de len
-		lipids.append(ARG11[i][0])
-		ratios.append(ARG11[i][1])
-		#surfaces.append(float(d[ARG11[i][1]].rstrip()))
-
-	#return(ratios, lipids, surfaces)
-	return(ratios, lipids)
 	
 # Convert crd file into molecule object
 def read_crd(fname):
@@ -434,13 +418,16 @@ if __name__ == "__main__":
 		uplayer = layer_creation(template_size_u, sys_size, leaflets[0])
 		lowlayer = layer_creation(template_size_l, sys_size, leaflets[1])
 
-		#It moves the lower layer so as to have them separated by 20 in the Z axis. This is the separation between the two membrane's leaflets.
+		
 		uplayer.center
 		lowlayer.center
-
+		
+		#Calculating the max and min z coordinates of the lower leaflet to calculate afterwards the minimum distance (0)
+		#between the layers
 		zmax = max(lowlayer.z)
 		zmin = min(lowlayer.z)
 
+		#It moves the lower layer so as to have them separated by the distance (in the Z axis) defined by the user
 		lowlayer.moveBy([[ 0.0,    0.0,   -(bet_dist+zmax-zmin)]])
 
 		#It joins the two layers in a single molecule object and it writes it in the resulting .pdb file.
