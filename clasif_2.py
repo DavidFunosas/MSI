@@ -341,9 +341,6 @@ if __name__ == "__main__":
 			previous_differences = propDifferences(target_props, current_props)
 			leaflet_copy = deepcopy(mol)
 
-			previous_nLipids = mol.numResidues
-			current_nLipids = previous_nLipids
-
 			#If the attempts are unsuccessful 10 times in a row, it exits the loop
 			nFailedAttemptsInARow = 0
 
@@ -396,7 +393,6 @@ if __name__ == "__main__":
 					previous_props = deepcopy(current_props)
 					previous_differences = deepcopy(current_differences)
 					leaflet_copy = deepcopy(mol)
-					previous_nLipids = current_nLipids
 					nFailedAttemptsInARow = 0
 				#If proportions have not improved, it reverts the changes
 				else:
@@ -404,7 +400,6 @@ if __name__ == "__main__":
 					current_props = previous_props
 					current_differences = previous_differences
 					nFailedAttemptsInARow += 1
-					current_nLipids = previous_nLipids
 
 			leaflets[leaflet] = mol
 	
@@ -418,14 +413,17 @@ if __name__ == "__main__":
 		uplayer = layer_creation(template_size_u, sys_size, leaflets[0])
 		lowlayer = layer_creation(template_size_l, sys_size, leaflets[1])
 
-		
 		uplayer.center
 		lowlayer.center
 		
 		#Calculating the max and min z coordinates of the lower leaflet to calculate afterwards the minimum distance (0)
 		#between the layers
-		zmax = max(lowlayer.z)
-		zmin = min(lowlayer.z)
+		zmax_l = max(lowlayer.z)
+		zmin_l = min(lowlayer.z)
+		zmax_u = max(uplayer.z)
+		zmin_u = min(uplayer.z)
+		zmax = max([zmax_l,zmax_u])
+		zmin = min([zmin_l,zmin_u])
 
 		#It moves the lower layer so as to have them separated by the distance (in the Z axis) defined by the user
 		lowlayer.moveBy([[ 0.0,    0.0,   -(bet_dist+zmax-zmin)]])
@@ -444,7 +442,4 @@ if __name__ == "__main__":
 			uplayer.view('VMD')
 			input("\nPress enter to finish visualization and exit.")
 		
-
-
-
 
